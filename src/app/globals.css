@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-rgb: 11, 7, 16;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: rgb(var(--background-rgb));
+  color: rgb(var(--foreground-rgb));
+}
+
+body {
+  background-color: #050308;
+  min-height: 100vh;
+  font-feature-settings: 'rlig' 1, 'calt' 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Conteneur mobile : applique le dégradé d'origine, scopé à la zone "écran" */
+.mobile-frame {
+  background-color: rgb(var(--background-rgb));
+  background-image: radial-gradient(
+    ellipse 80% 60% at 50% 0%,
+    rgba(60, 20, 50, 0.5) 0%,
+    rgba(20, 10, 30, 0.3) 35%,
+    rgba(11, 7, 16, 1) 70%
+  );
+}
+
+/* Scrollbars - hide on mobile-style horizontal scrollers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom range slider for video player */
+.range-progress {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.range-progress::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.range-progress::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  background: #ffffff;
+  margin-top: -5px;
+  box-shadow: 0 0 0 2px #DC2626;
+}
+
+.range-progress::-moz-range-track {
+  height: 4px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.range-progress::-moz-range-thumb {
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #DC2626;
+}
+
+/* Glow effect for focused inputs */
+.input-glow:focus-within {
+  box-shadow: 0 0 0 1px rgba(220, 38, 38, 0.6),
+    0 0 24px rgba(220, 38, 38, 0.15);
+}
+
+/* Logo glow */
+.logo-glow {
+  filter: drop-shadow(0 0 24px rgba(220, 38, 38, 0.55));
+}
+
+/* Card gradient overlay (purple/burgundy) */
+.video-thumb {
+  background: linear-gradient(135deg, #4A2470 0%, #2A1840 50%, #1A0F2A 100%);
+}
+.video-thumb-2 {
+  background: linear-gradient(135deg, #5C2150 0%, #2D1438 50%, #150B22 100%);
+}
+.video-thumb-3 {
+  background: linear-gradient(135deg, #3F1F5F 0%, #2A1A40 50%, #150D22 100%);
+}
+.video-thumb-4 {
+  background: linear-gradient(135deg, #6B1F40 0%, #381028 50%, #1F0A1A 100%);
+}
+
+/* Bottom nav active glow */
+.nav-active-glow {
+  filter: drop-shadow(0 0 8px rgba(220, 38, 38, 0.6));
+}
+
+/* Page transitions */
+.page-fade {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
