@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, FormEvent } from 'react';
+import { Suspense, useState, useEffect, useRef, FormEvent } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Logo from '@/components/Logo';
 import { createClient } from '@/lib/supabase/client';
@@ -8,6 +8,24 @@ import { createClient } from '@/lib/supabase/client';
 const CODE_LENGTH = 8;
 
 export default function VerifyPage() {
+  return (
+    <Suspense fallback={<VerifyFallback />}>
+      <VerifyForm />
+    </Suspense>
+  );
+}
+
+function VerifyFallback() {
+  return (
+    <main className="min-h-dvh flex flex-col px-6 pt-12 pb-10 page-fade">
+      <div className="flex flex-col items-center mb-16">
+        <Logo />
+      </div>
+    </main>
+  );
+}
+
+function VerifyForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const supabase = createClient();
