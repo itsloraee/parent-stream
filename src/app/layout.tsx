@@ -39,8 +39,12 @@ export default function RootLayout({
   return (
     <html lang="fr" className={poppins.variable}>
       <body className="font-sans antialiased text-ink-primary">
-        {/* Conteneur mobile : centre l'app sur PC, plein écran sur mobile */}
-        <div className="mobile-frame relative mx-auto w-full max-w-md min-h-dvh shadow-2xl shadow-black/60">
+        {/*
+         * Conteneur responsive :
+         * - Mobile/Tablette (< lg) : cadre mobile centré max-w-md avec dégradé
+         * - Desktop (lg+) : pleine largeur, le dégradé reste contenu via .mobile-frame
+         */}
+        <div className="mobile-frame relative mx-auto w-full max-w-md lg:max-w-none min-h-dvh shadow-2xl shadow-black/60 lg:shadow-none">
           {children}
         </div>
       </body>

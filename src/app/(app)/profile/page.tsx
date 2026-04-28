@@ -40,10 +40,10 @@ export default async function ProfilePage() {
     profile?.full_name?.[0]?.toUpperCase() ?? profile?.username?.[0]?.toUpperCase() ?? 'U';
 
   return (
-    <main className="px-6 pt-12">
+    <main className="px-6 pt-12 lg:px-12 lg:pt-10 lg:max-w-3xl lg:mx-auto">
       <header className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-semibold">Mon Profil</h1>
-        <p className="text-[11px] text-ink-tertiary italic">made by @itsloraee</p>
+        <h1 className="text-2xl lg:text-3xl font-semibold">Mon Profil</h1>
+        <p className="lg:hidden text-[11px] text-ink-tertiary italic">made by @itsloraee</p>
       </header>
 
       <div className="flex flex-col items-center">

@@ -69,11 +69,11 @@ export default function MyListPage() {
   ];
 
   return (
-    <main className="px-6 pt-12">
+    <main className="px-6 pt-12 lg:px-12 lg:pt-10 lg:max-w-7xl lg:mx-auto">
       <header className="mb-6">
-        <h1 className="text-2xl font-semibold">Ma Liste</h1>
+        <h1 className="text-2xl lg:text-3xl font-semibold">Ma Liste</h1>
         <p className="text-xs text-ink-tertiary mt-1">{items.length} vidéos sauvegardées</p>
-        <p className="absolute right-6 top-14 -translate-y-3 text-[11px] text-ink-tertiary italic">
+        <p className="lg:hidden absolute right-6 top-3 text-[10px] text-ink-tertiary italic">
           made by @itsloraee
         </p>
       </header>
@@ -98,7 +98,7 @@ export default function MyListPage() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {items.map((v, i) => (
               <VideoCard
                 key={v.id}

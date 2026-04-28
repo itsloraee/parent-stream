@@ -50,14 +50,14 @@ export default function HomeContent({
       {heroSeries && (
         <Link
           href={`/video/${heroSeries.id}`}
-          className="block mt-6 relative h-56 rounded-2xl overflow-hidden video-thumb"
+          className="block mt-6 relative h-56 lg:h-80 rounded-2xl overflow-hidden video-thumb"
         >
-          <div className="absolute top-3 left-3 z-10 px-3 py-1 rounded-full bg-gradient-brand text-[11px] font-semibold tracking-wider">
+          <div className="absolute top-3 left-3 lg:top-5 lg:left-5 z-10 px-3 py-1 rounded-full bg-gradient-brand text-[11px] font-semibold tracking-wider">
             FAMILLE
           </div>
-          <div className="absolute inset-x-0 bottom-0 p-5 bg-gradient-hero">
-            <h2 className="text-xl font-bold mb-1">{heroSeries.title}</h2>
-            <p className="text-xs text-ink-secondary">
+          <div className="absolute inset-x-0 bottom-0 p-5 lg:p-8 bg-gradient-hero">
+            <h2 className="text-xl lg:text-3xl font-bold mb-1">{heroSeries.title}</h2>
+            <p className="text-xs lg:text-sm text-ink-secondary">
               45 min · {heroSeries.rating.toFixed(1)} ·{' '}
               {heroSeries.is_new && <span>Nouvelle saison</span>}
             </p>
@@ -65,13 +65,16 @@ export default function HomeContent({
         </Link>
       )}
 
-      {/* Continuer à regarder */}
+      {/* Continuer à regarder
+       * Mobile : scroll horizontal
+       * Desktop : grille jusqu'à 5 colonnes
+       */}
       {continueWatching.length > 0 && (
         <section className="mt-8">
           <SectionHeader title="Continuer à regarder" href="/my-list" />
-          <div className="flex gap-4 overflow-x-auto no-scrollbar -mx-6 px-6">
+          <div className="flex gap-4 overflow-x-auto no-scrollbar -mx-6 px-6 lg:grid lg:grid-cols-4 xl:grid-cols-5 lg:overflow-visible lg:mx-0 lg:px-0">
             {continueWatching.map((v, i) => (
-              <div key={v.id} className="w-40 shrink-0">
+              <div key={v.id} className="w-40 shrink-0 lg:w-auto">
                 <VideoCard
                   video={v}
                   thumbVariant={((i % 4) + 1) as 1 | 2 | 3 | 4}
@@ -84,10 +87,10 @@ export default function HomeContent({
 
       {/* Recommandé pour vous */}
       <section className="mt-8">
-        <SectionHeader title="Recommandé pour vous" href="/search" />
-        <div className="flex gap-4 overflow-x-auto no-scrollbar -mx-6 px-6">
+        <SectionHeader title="Recommandé pour vous" href="/catalog" />
+        <div className="flex gap-4 overflow-x-auto no-scrollbar -mx-6 px-6 lg:grid lg:grid-cols-4 xl:grid-cols-5 lg:overflow-visible lg:mx-0 lg:px-0">
           {recommended.map((v, i) => (
-            <div key={v.id} className="w-40 shrink-0">
+            <div key={v.id} className="w-40 shrink-0 lg:w-auto">
               <VideoCard
                 video={v}
                 thumbVariant={((i % 4) + 1) as 1 | 2 | 3 | 4}

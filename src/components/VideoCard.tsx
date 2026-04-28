@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Bookmark } from 'lucide-react';
@@ -27,25 +28,41 @@ function formatDuration(seconds: number) {
   return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
 }
 
+/**
+ * Détecte si une URL est une thumbnail YouTube : on saute alors l'optimisation
+ * Next.js (qui spamme la console quand l'ID est invalide) et on charge en direct.
+ */
+function isExternalThumbnail(url: string | null | undefined): boolean {
+  if (!url) return false;
+  return url.includes('ytimg.com') || url.includes('youtube.com');
+}
+
 export default function VideoCard({
   video,
   variant = 'default',
   thumbVariant = 1,
   onToggleSave,
 }: VideoCardProps) {
+  const [imageErrored, setImageErrored] = useState(false);
+
   const thumbClass =
     thumbVariant === 2 ? 'video-thumb-2' : thumbVariant === 3 ? 'video-thumb-3' : thumbVariant === 4 ? 'video-thumb-4' : 'video-thumb';
+
+  // Si la miniature a 404, on la cache et le dégradé .video-thumb prend le relais
+  const showImage = video.thumbnail_url && !imageErrored;
 
   return (
     <Link href={`/video/${video.id}`} className="block group">
       <div className={`relative aspect-square rounded-2xl overflow-hidden ${thumbClass}`}>
-        {video.thumbnail_url && (
+        {showImage && (
           <Image
-            src={video.thumbnail_url}
+            src={video.thumbnail_url!}
             alt={video.title}
             fill
             sizes="(max-width: 768px) 50vw, 200px"
             className="object-cover"
+            unoptimized={isExternalThumbnail(video.thumbnail_url)}
+            onError={() => setImageErrored(true)}
           />
         )}
 

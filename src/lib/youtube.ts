@@ -49,12 +49,18 @@ export function isYouTubeUrl(url: string | null | undefined): boolean {
 }
 
 /**
- * Construit une URL d'embed YouTube avec les bons paramètres pour notre player.
+ * Construit une URL d'embed YouTube avec les paramètres qui masquent au max
+ * le branding YouTube — pour que la vidéo se sente intégrée à Parent Stream.
+ *
  * - autoplay : démarre la lecture automatiquement
- * - controls : affiche/masque les contrôles natifs (on les masque pour cohérence UI)
- * - rel=0 : limite les vidéos suggérées à la même chaîne
- * - modestbranding=1 : retire le gros logo YouTube
+ * - controls : affiche/masque les contrôles natifs
+ * - rel=0 : pas de vidéos suggérées d'autres chaînes à la fin
+ * - modestbranding=1 : retire le gros logo YouTube de la barre de contrôles
  * - playsinline=1 : lecture inline sur mobile (pas plein écran forcé)
+ * - iv_load_policy=3 : désactive les annotations
+ * - disablekb=1 : désactive les raccourcis clavier YouTube
+ * - fs=1 : autorise le plein écran (utile sur mobile)
+ * - cc_load_policy=0 : désactive les sous-titres par défaut
  */
 export function buildYouTubeEmbedUrl(
   videoId: string,
@@ -67,8 +73,13 @@ export function buildYouTubeEmbedUrl(
     controls: options.controls === false ? '0' : '1',
     autoplay: options.autoplay ? '1' : '0',
     mute: options.mute ? '1' : '0',
+    iv_load_policy: '3',
+    disablekb: '1',
+    fs: '1',
+    cc_load_policy: '0',
+    color: 'white',
   });
-  return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
+  return `https://www.youtube-nocookie.com/embed/${videoId}?${params.toString()}`;
 }
 
 /**

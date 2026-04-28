@@ -43,11 +43,17 @@ export default async function HomePage() {
     .order('last_watched_at', { ascending: false })
     .limit(6);
 
-  // Recommandé pour vous (les plus vus)
+  // Recommandé pour vous
+  // Tri en 3 niveaux pour garder un ordre cohérent :
+  //  1. series_id NULLS FIRST → vidéos standalone d'abord, puis épisodes groupés
+  //  2. episode_number ASC → épisodes dans l'ordre 1, 2, 3 au sein d'une série
+  //  3. views_count DESC → standalones triés par popularité
   const { data: recommended } = await supabase
     .from('videos')
     .select('id, title, subtitle, duration_seconds, thumbnail_url')
     .eq('is_published', true)
+    .order('series_id', { ascending: true, nullsFirst: true })
+    .order('episode_number', { ascending: true, nullsFirst: false })
     .order('views_count', { ascending: false })
     .limit(8);
 
@@ -55,9 +61,9 @@ export default async function HomePage() {
     profile?.full_name?.[0]?.toUpperCase() ?? profile?.username?.[0]?.toUpperCase() ?? 'U';
 
   return (
-    <main className="px-6 pt-12">
+    <main className="px-6 pt-12 lg:px-12 lg:pt-10 lg:max-w-7xl lg:mx-auto">
       <header className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-semibold">Parent Stream</h1>
+        <h1 className="text-2xl lg:text-3xl font-semibold">Parent Stream</h1>
         <div className="flex items-center gap-3">
           <Link
             href="/notifications"
@@ -77,7 +83,7 @@ export default async function HomePage() {
         </div>
       </header>
 
-      <p className="text-[11px] text-ink-tertiary italic absolute right-6 top-14 -translate-y-3">
+      <p className="lg:hidden text-[10px] text-ink-tertiary italic absolute right-6 top-3">
         made by @itsloraee
       </p>
 

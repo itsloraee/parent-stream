@@ -116,9 +116,12 @@ export default function VideoDetailClient({
   // Affiché dès qu'une source vidéo est dispo, même sans série
   if (view === 'player' && video.video_url) {
     return (
-      <main className="min-h-dvh -mt-0 page-fade">
-        {/* Player */}
-        <div className="relative h-[55vh] video-thumb overflow-hidden bg-black">
+      <main className="min-h-dvh -mt-0 page-fade lg:max-w-7xl lg:mx-auto lg:px-12 lg:pt-8">
+        {/* Player
+         * Mobile : pleine largeur, hauteur 55vh
+         * Desktop : ratio 16/9 dans le conteneur, max-w-5xl pour rester cadré
+         */}
+        <div className="relative h-[55vh] lg:h-auto lg:aspect-video lg:max-w-5xl lg:mx-auto lg:rounded-2xl video-thumb overflow-hidden bg-black">
           {/* Source vidéo : iframe YouTube OU <video> HTML natif */}
           {isYouTube && youtubeId ? (
             <iframe
@@ -206,8 +209,8 @@ export default function VideoDetailClient({
         </div>
 
         {/* Info & actions */}
-        <section className="px-6 pt-6 pb-8">
-          <h2 className="text-2xl font-bold">{seriesTitle ?? video.title}</h2>
+        <section className="px-6 pt-6 pb-8 lg:max-w-5xl lg:mx-auto">
+          <h2 className="text-2xl lg:text-3xl font-bold">{seriesTitle ?? video.title}</h2>
           {seriesTitle && video.episode_number ? (
             <p className="text-sm text-ink-secondary mt-1">
               S01E0{video.episode_number} — {video.subtitle}
@@ -274,9 +277,9 @@ export default function VideoDetailClient({
 
   // Vue 2 : Détails vidéo (mockup #6)
   return (
-    <main className="page-fade">
+    <main className="page-fade lg:max-w-7xl lg:mx-auto lg:px-12 lg:pt-8">
       {/* Hero (placeholder thumbnail) */}
-      <div className="relative h-72 video-thumb-2">
+      <div className="relative h-72 lg:h-[500px] lg:rounded-2xl video-thumb-2 lg:overflow-hidden">
         <button
           onClick={() => setView('player')}
           className="absolute inset-0 flex items-center justify-center group"
@@ -291,16 +294,16 @@ export default function VideoDetailClient({
         </span>
       </div>
 
-      <section className="px-6 pt-6 pb-10">
+      <section className="px-6 pt-6 pb-10 lg:px-0">
         {video.category && (
           <span className="inline-block px-3 py-1 rounded-full bg-gradient-brand text-[11px] font-semibold tracking-wider">
             {video.category.name.toUpperCase()}
           </span>
         )}
 
-        <h1 className="text-3xl font-bold mt-3">{video.title}</h1>
+        <h1 className="text-3xl lg:text-4xl font-bold mt-3">{video.title}</h1>
 
-        <div className="grid grid-cols-4 gap-2 mt-6">
+        <div className="grid grid-cols-4 gap-2 mt-6 lg:max-w-2xl">
           <Stat value={formatCount(video.views_count)} label="Vues" tone="brand" />
           <Stat value={video.rating.toFixed(1)} label="Note ★" tone="gold" />
           <Stat value={`${video.satisfaction}%`} label="Satisf." tone="brand" />
