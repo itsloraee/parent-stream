@@ -153,8 +153,13 @@ export default function RegisterPage() {
 
         <p className="mt-6 text-center text-xs text-ink-tertiary">
           En créant un compte vous acceptez nos{' '}
-          <span className="text-brand-500">Conditions d&apos;utilisation</span> et notre{' '}
-          <span className="text-brand-500">Politique de confidentialité</span>
+          <Link href="/terms" className="text-brand-500 hover:underline">
+            Conditions d&apos;utilisation
+          </Link>{' '}
+          et notre{' '}
+          <Link href="/privacy" className="text-brand-500 hover:underline">
+            Politique de confidentialité
+          </Link>
         </p>
 
         <div className="mt-8">

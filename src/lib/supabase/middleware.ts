@@ -42,7 +42,10 @@ export async function updateSession(request: NextRequest) {
     pathname === '/verify' ||
     pathname.startsWith('/auth');
 
-  const isPublicRoute = pathname === '/' || isAuthRoute || pathname.startsWith('/api');
+  const isLegalRoute = pathname === '/terms' || pathname === '/privacy';
+
+  const isPublicRoute =
+    pathname === '/' || isAuthRoute || isLegalRoute || pathname.startsWith('/api');
 
   // Redirige vers /login si non authentifié sur route privée
   if (!user && !isPublicRoute) {

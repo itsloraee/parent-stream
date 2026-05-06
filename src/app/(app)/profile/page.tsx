@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { ChevronRight, User as UserIcon, Bell, Settings, LogOut } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
@@ -53,9 +54,12 @@ export default async function ProfilePage() {
         <h2 className="mt-4 text-xl font-bold">{profile?.full_name ?? 'Utilisateur'}</h2>
         <p className="text-sm text-ink-tertiary">@{profile?.username ?? user.email?.split('@')[0]}</p>
 
-        <button className="mt-4 px-6 py-2 rounded-full bg-gradient-brand text-sm font-semibold shadow-glow-sm">
+        <Link
+          href="/account"
+          className="mt-4 px-6 py-2 rounded-full bg-gradient-brand text-sm font-semibold shadow-glow-sm hover:opacity-95 transition"
+        >
           Modifier
-        </button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-4 gap-3 mt-8">
@@ -71,12 +75,14 @@ export default async function ProfilePage() {
 
       <ul className="mt-8 space-y-3">
         <MenuItem
+          href="/account"
           icon={<UserIcon size={18} />}
           label="Mon compte"
           description="Gérer mes informations"
           tone="brand"
         />
         <MenuItem
+          href="/notifications"
           icon={<Bell size={18} />}
           label="Notifications"
           description="Activer les alertes"
@@ -84,6 +90,7 @@ export default async function ProfilePage() {
           highlighted
         />
         <MenuItem
+          href="/settings"
           icon={<Settings size={18} />}
           label="Paramètres"
           description="Confidentialité & sécurité"
@@ -116,12 +123,14 @@ function Stat({ value, label, highlight }: { value: string; label: string; highl
 }
 
 function MenuItem({
+  href,
   icon,
   label,
   description,
   tone,
   highlighted,
 }: {
+  href: string;
   icon: React.ReactNode;
   label: string;
   description: string;
@@ -130,7 +139,8 @@ function MenuItem({
 }) {
   return (
     <li>
-      <button
+      <Link
+        href={href}
         className={`w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl transition ${
           highlighted
             ? 'bg-surface-700 ring-1 ring-surface-500/40'
@@ -149,7 +159,7 @@ function MenuItem({
           <p className="text-xs text-ink-tertiary mt-0.5">{description}</p>
         </div>
         <ChevronRight size={18} className="text-ink-tertiary" />
-      </button>
+      </Link>
     </li>
   );
 }
